@@ -2,26 +2,27 @@ require 'socket'
 
 namespace :cron do
 
-	host = Socket.ip_address_list.map { |a| a.inspect_sockaddr if a.ipv4? }.reject!{ |ip| ip.blank? }.to_sentence
+	host = Socket.gethostname
+	ips = Socket.ip_address_list.map { |a| a.inspect_sockaddr if a.ipv4? }.reject!{ |ip| ip.blank? }.to_sentence
 
-	task :worker do
+	task :hi do
 	
 		while true
-			puts "#{Time.now} - Worker process on #{host}"
+			puts "#{Time.now} - Hi from #{host} (#{ips})"
 			sleep 20
 		end
 
 	end
 
-	task :banking do
+	task :worker do
 	
-		puts "#{Time.now} - Banking work on #{host}"
+		puts "#{Time.now} - Worker shit on #{host} (#{ips})"
 		
 	end
 
-	task :anything do
+	task :web do
 	
-		puts "#{Time.now} - Running anything on #{host}"
+		puts "#{Time.now} - Web shit on #{host} (#{ips})"
 		
 	end
 
